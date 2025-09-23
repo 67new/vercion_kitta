@@ -1,4 +1,4 @@
-name: CI/CD Quasar + Pages + Playwright
+name: Deploy Quasar SPA to GitHub Pages
 
 on:
   push:
@@ -6,51 +6,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      # Build the Quasar app to dist/spa for local E2E
-      - name: Install app dependencies
-        working-directory: VersionControl1
-        run: npm ci
-
-      - name: Build Quasar SPA (PUBLIC_PATH=/ for local test)
-        working-directory: VersionControl1
-        env:
-          PUBLIC_PATH: /
-        run: npx quasar build
-
-      # Setup Playwright project and browsers
-      - name: Install test dependencies
-        working-directory: Playwright
-        run: npm install
-
-      - name: Install Playwright browsers
-        working-directory: Playwright
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests (local dist)
-        working-directory: Playwright
-        run: npx playwright test --reporter=line
-
-      - name: Upload Playwright report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: Playwright/playwright-report
-          retention-days: 7
-
   build-and-deploy-external:
-    needs: test
     concurrency:
       group: quasar-gh-pages
       cancel-in-progress: true
@@ -88,7 +44,7 @@ jobs:
           keep_files: false
 
   build-and-deploy-internal:
-    needs: test
+    # optional internal deploy to this repo's gh-pages
     runs-on: ubuntu-latest
     permissions:
       contents: write

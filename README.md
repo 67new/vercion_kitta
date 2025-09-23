@@ -1,6 +1,6 @@
 # versioncontrol
 
-[![CI/CD](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml/badge.svg)](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml)
+[![Deploy](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml/badge.svg)](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml)
 [![GitHub Pages](https://img.shields.io/github/deployments/RattyC/versioncontrol/github-pages?label=github%20pages&logo=github)](https://rattyc.github.io/versioncontrol/)
 
 Deploy (Quasar SPA) with GitHub Actions
@@ -18,13 +18,8 @@ Local commands (inside `VersionControl1`)
 - `npm ci`
 - `npx quasar build`
 
-E2E Tests (Playwright)
-- Test project: `Playwright/`
-- Config: `Playwright/playwright.config.ts` (auto-serves local `dist/spa` if no `BASE_URL`)
-- Run locally:
-  - `cd Playwright && npm ci`
-  - `npm run test` (headless) or `npm run test:headed`
-  - `npm run show-report`
+Local preview
+- `cd VersionControl1 && npm ci && npx quasar dev`
 
 Public path per target
 - `VersionControl1/quasar.config.js` reads `process.env.PUBLIC_PATH` with fallback `/VersionControl1/`.
