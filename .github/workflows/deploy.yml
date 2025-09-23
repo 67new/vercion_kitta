@@ -29,7 +29,7 @@ jobs:
       - name: Install and Build (Quasar)
         working-directory: VersionControl1
         env:
-          PUBLIC_PATH: /VersionControl1/
+          PUBLIC_PATH: /versioncontrol/
         run: |
           npm ci
           npx quasar build
@@ -37,18 +37,9 @@ jobs:
       - name: Copy index.html to 404.html (SPA routing)
         run: cp VersionControl1/dist/spa/index.html VersionControl1/dist/spa/404.html
 
-      - name: Verify NEW_TOKEN is set
-        run: |
-          if [ -z "${{ secrets.NEW_TOKEN }}" ]; then
-            echo "Missing required secret NEW_TOKEN (PAT with repo scope to push to somnuk2/VersionControl1)" >&2
-            exit 1
-          fi
-
-      - name: Deploy to GitHub Pages (somnuk2/VersionControl1)
+      - name: Deploy to GitHub Pages (this repo)
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.NEW_TOKEN }}
-          external_repository: somnuk2/VersionControl1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: VersionControl1/dist/spa
           publish_branch: gh-pages
-
