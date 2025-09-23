@@ -42,35 +42,3 @@ jobs:
           publish_branch: gh-pages
           publish_dir: VersionControl1/dist/spa
           keep_files: false
-
-  build-and-deploy-internal:
-    # optional internal deploy to this repo's gh-pages
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: VersionControl1/package-lock.json
-
-      - name: Install dependencies (VersionControl1)
-        working-directory: VersionControl1
-        run: npm ci
-
-      - name: Build Quasar SPA (PUBLIC_PATH=/versioncontrol/)
-        working-directory: VersionControl1
-        env:
-          PUBLIC_PATH: /versioncontrol/
-        run: npx quasar build
-
-      - name: Deploy to GitHub Pages (this repo)
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: VersionControl1/dist/spa

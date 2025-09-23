@@ -1,7 +1,6 @@
 # versioncontrol
 
 [![Deploy](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml/badge.svg)](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml)
-[![GitHub Pages](https://img.shields.io/github/deployments/RattyC/versioncontrol/github-pages?label=github%20pages&logo=github)](https://rattyc.github.io/versioncontrol/)
 
 Deploy (Quasar SPA) with GitHub Actions
 - Workflow: `.github/workflows/deploy.yml`
@@ -10,8 +9,7 @@ Deploy (Quasar SPA) with GitHub Actions
 - Output: `VersionControl1/dist/spa`
 
 Setup steps
-- Ensure GitHub Pages is enabled for branch `gh-pages` in repo Settings (Root folder).
-- Internal URL: https://rattyc.github.io/versioncontrol/
+- Enable GitHub Pages on the target repo `somnuk2/VersionControl1` (branch `gh-pages`, root).
 - External URL: https://somnuk2.github.io/VersionControl1/#/
 
 Local commands (inside `VersionControl1`)
@@ -21,13 +19,10 @@ Local commands (inside `VersionControl1`)
 Local preview
 - `cd VersionControl1 && npm ci && npx quasar dev`
 
-Public path per target
+Public path
 - `VersionControl1/quasar.config.js` reads `process.env.PUBLIC_PATH` with fallback `/VersionControl1/`.
-- CI builds with different `PUBLIC_PATH` values:
-  - Tests/local: `/`
-  - External Pages: `/VersionControl1/`
-  - Internal Pages: `/versioncontrol/`
+- CI builds with `PUBLIC_PATH=/VersionControl1/` for the external Pages.
 
-Deploying to external repository
+Deploying (external repository)
 - The workflow deploys to `somnuk2/VersionControl1` using `peaceiris/actions-gh-pages`.
 - Add a repository secret in this repo named `GH_PAT` with a Personal Access Token that has `repo` scope and write access to `somnuk2/VersionControl1`.
