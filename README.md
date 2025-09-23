@@ -11,7 +11,8 @@ Deploy (Quasar SPA) with GitHub Actions
 
 Setup steps
 - Ensure GitHub Pages is enabled for branch `gh-pages` in repo Settings (Root folder).
-- URL: https://rattyc.github.io/versioncontrol/
+- Default URL (this repo): https://rattyc.github.io/versioncontrol/
+- Target URL (external repo): https://somnuk2.github.io/VersionControl1/#/
 
 Local commands (inside `VersionControl1`)
 - `npm ci`
@@ -24,3 +25,8 @@ E2E Tests (Playwright)
   - `cd Playwright && npm ci`
   - `npm run test` (headless) or `npm run test:headed`
   - `npm run show-report`
+
+Deploying to external repository
+- This workflow deploys to `somnuk2/VersionControl1` using `peaceiris/actions-gh-pages`.
+- Add a repository secret in this repo named `GH_PAT` with a Personal Access Token that has `repo` scope and write access to `somnuk2/VersionControl1`.
+- In `VersionControl1/quasar.config.js`, `publicPath` is set to `/VersionControl1/` to match the target URL.
