@@ -1,5 +1,8 @@
 # versioncontrol
 
+[![CI/CD](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml/badge.svg)](https://github.com/RattyC/versioncontrol/actions/workflows/deploy.yml)
+[![GitHub Pages](https://img.shields.io/github/deployments/RattyC/versioncontrol/github-pages?label=github%20pages&logo=github)](https://rattyc.github.io/versioncontrol/)
+
 Deploy (Quasar SPA) with GitHub Actions
 - Workflow: `.github/workflows/deploy.yml`
 - Triggers: push to `main` or manual run (workflow_dispatch)
@@ -7,7 +10,7 @@ Deploy (Quasar SPA) with GitHub Actions
 - Output: `VersionControl1/dist/spa`
 
 Setup steps
-- Ensure GitHub Pages is enabled for branch `gh-pages` in repo Settings.
+- Ensure GitHub Pages is enabled for branch `gh-pages` in repo Settings (Root folder).
 - URL: https://rattyc.github.io/versioncontrol/
 
 Local commands (inside `VersionControl1`)
