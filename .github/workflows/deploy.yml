@@ -12,7 +12,7 @@ jobs:
       cancel-in-progress: true
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,3 +42,9 @@ jobs:
           publish_branch: gh-pages
           publish_dir: VersionControl1/dist/spa
           keep_files: false
+      - name: Verify GH_PAT is set
+        run: |
+          if [ -z "${{ secrets.GH_PAT }}" ]; then
+            echo "Missing required secret GH_PAT (PAT with repo scope to push to somnuk2/VersionControl1)" >&2
+            exit 1
+          fi
