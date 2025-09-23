@@ -1,0 +1,54 @@
+name: Deploy Quasar SPA to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: VersionControl1/package-lock.json
+
+      - name: Cache npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('VersionControl1/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install and Build (Quasar)
+        working-directory: VersionControl1
+        env:
+          PUBLIC_PATH: /VersionControl1/
+        run: |
+          npm ci
+          npx quasar build
+
+      - name: Copy index.html to 404.html (SPA routing)
+        run: cp VersionControl1/dist/spa/index.html VersionControl1/dist/spa/404.html
+
+      - name: Verify NEW_TOKEN is set
+        run: |
+          if [ -z "${{ secrets.NEW_TOKEN }}" ]; then
+            echo "Missing required secret NEW_TOKEN (PAT with repo scope to push to somnuk2/VersionControl1)" >&2
+            exit 1
+          fi
+
+      - name: Deploy to GitHub Pages (somnuk2/VersionControl1)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.NEW_TOKEN }}
+          external_repository: somnuk2/VersionControl1
+          publish_dir: VersionControl1/dist/spa
+          publish_branch: gh-pages
+

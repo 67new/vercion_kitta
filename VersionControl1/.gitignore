@@ -1,0 +1,13 @@
+# OS
+.DS_Store
+
+# Node
+node_modules/
+
+# Quasar build output
+VersionControl1/dist/
+
+# (reserved)
+
+# Jupyter
+.ipynb_checkpoints/
