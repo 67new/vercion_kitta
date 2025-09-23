@@ -1,10 +1,8 @@
 import { defineConfig } from '@playwright/test'
 import path from 'path'
-import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const dist = path.resolve(__dirname, '../VersionControl1/dist/spa')
+// Resolve dist relative to the Playwright working directory
+const dist = path.resolve(process.cwd(), '../VersionControl1/dist/spa')
 
 export default defineConfig({
   testDir: './tests',
