@@ -5,7 +5,8 @@
 node_modules/
 
 # Quasar build output
-VersionControl1/dist/
+dist/
+.quasar/
 
 # (reserved)
 
